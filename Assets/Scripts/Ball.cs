@@ -12,6 +12,7 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    //Comentario aqui
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbody2D.velocity = Vector2.up * _speed;
     }
