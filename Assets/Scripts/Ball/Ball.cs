@@ -26,7 +26,7 @@ public class Ball : MonoBehaviour
     private Vector2 GetHitFactor(Vector2 ballPos, Vector2 otherPos, Vector3 otherSize)
     {
         float x = (ballPos.x - otherPos.x) / otherSize.x;
-        float y = (ballPos.y - otherPos.x) / otherSize.y;
+        float y = (ballPos.y - otherPos.y) / otherSize.y;
 
         return new Vector2(x, y).normalized;
     }
