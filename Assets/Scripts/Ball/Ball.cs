@@ -8,6 +8,8 @@ public class Ball : MonoBehaviour
     [SerializeField] private float _speed = 100f;
 
     private Rigidbody2D _rigidbody2D;
+
+    private int _hitWall = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -19,8 +21,21 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        Vector2 direction = GetHitFactor(transform.position, other.transform.position, other.collider.bounds.size);
-        _rigidbody2D.velocity = direction * _speed;
+        if (other.gameObject.layer != 9)
+        {
+            _hitWall = 0;
+            Vector2 direction = GetHitFactor(transform.position, other.transform.position, other.collider.bounds.size);
+            _rigidbody2D.velocity = direction * _speed;
+        }
+        else
+        {
+            _hitWall++;
+            if (_hitWall >= 3)
+            {
+                Vector2 direction = GetHitFactor(transform.position, other.transform.position, other.collider.bounds.size);
+                _rigidbody2D.velocity = direction * _speed;
+            }
+        }
     }
 
     private Vector2 GetHitFactor(Vector2 ballPos, Vector2 otherPos, Vector3 otherSize)
