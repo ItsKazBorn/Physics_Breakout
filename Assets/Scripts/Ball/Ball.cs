@@ -21,7 +21,12 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.layer != 9)
+        if (other.gameObject.layer == 11)
+        {
+            GameManager.Instance.RemoveLife();
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.layer != 9)
         {
             _hitWall = 0;
             Vector2 direction = GetHitFactor(transform.position, other.transform.position, other.collider.bounds.size);

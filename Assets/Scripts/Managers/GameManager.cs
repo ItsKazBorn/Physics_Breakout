@@ -18,8 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject m_gameOverPanel;
     [SerializeField] private TextMeshProUGUI m_scoreText;
 
-    private int m_lives = 3;
+    [Header("Game Info")]
+    [SerializeField] private int m_lives = 1;
     private int m_currentBlocks = 0;
+    private int m_allBlocks = 0;
 
     void Awake()
     {
@@ -40,16 +42,34 @@ public class GameManager : MonoBehaviour
     public void AddBlock()
     {
         m_currentBlocks++;
+        m_allBlocks++;
     }
 
     public void RemoveBlock()
     {
         m_currentBlocks--;
-        //Check End Game
         if (m_currentBlocks <= 0)
         {
             EndGame();
         }
+    }
+
+    public void RemoveLife()
+    {
+        m_lives--;
+        if (m_lives <= 0)
+        {
+            EndGame();
+        }
+        else
+        {
+            //Spawn Ball
+        }
+    }
+
+    public void SpawnBall()
+    {
+        
     }
 
     private void EndGame()
@@ -62,7 +82,8 @@ public class GameManager : MonoBehaviour
     private int CalculateScore(float time, int lives)
     {
         Debug.LogError($"{lives} / {Mathf.FloorToInt(time)}");
-        
-        return lives * 1000 / Mathf.FloorToInt(time);
+        int destroyedBlocks = (m_allBlocks - m_currentBlocks) * 100;
+        int livesScore = lives * 1000;
+        return (destroyedBlocks + livesScore) / Mathf.FloorToInt(time);
     }
 }
