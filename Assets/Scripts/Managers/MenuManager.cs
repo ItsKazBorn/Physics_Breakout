@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +6,9 @@ public class MenuManager : MonoBehaviour
     private static MenuManager m_instance;
     public static MenuManager Instance => m_instance;
     
-    private const string GAME_SCENE = "SampleScene";
+    private const string GAME_SCENE = "Game";
+    private const string LEADERBOARDS_SCENE = "Leaderboards";
+    private const string MAIN_MENU_SCENE = "MainMenu";
 
     private void Awake()
     {
@@ -22,14 +20,14 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(GAME_SCENE);
     }
 
-    public void OptionsButtonPressed()
+    public void MainMenuButtonPressed()
     {
-        Debug.Log("Options Button Pressed");
+        SceneManager.LoadScene(MAIN_MENU_SCENE);
     }
-
-    public void CreditsButtonPressed()
+    
+    public void LeaderboardsButtonPressed()
     {
-        Debug.Log("Credits Button Pressed");
+        SceneManager.LoadScene(LEADERBOARDS_SCENE);
     }
 
     public void ExitGameButtonPressed()

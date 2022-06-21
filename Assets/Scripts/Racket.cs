@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
 
 public class Racket : MonoBehaviour
@@ -19,14 +15,11 @@ public class Racket : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float horizontalAxis = Input.GetAxisRaw("Horizontal");
+        if (GameManager.Instance.IsRunning)
+        {
+            float horizontalAxis = Input.GetAxisRaw("Horizontal");
 
-        _rigidbody2D.velocity = Vector2.right * horizontalAxis * _speed;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+            _rigidbody2D.velocity = Vector2.right * (horizontalAxis * _speed);
+        }
     }
 }

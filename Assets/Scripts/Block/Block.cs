@@ -19,13 +19,25 @@ public class Block : MonoBehaviour
     {
         if (other.gameObject.tag == "Ball")
         {
-            _currentLife--;
+            StartCoroutine(TakeDamage());
+        }
+    }
 
-            if (_currentLife <= 0)
-            {
-                GameManager.Instance.RemoveBlock();
-                Destroy(gameObject);
-            }
+    private IEnumerator TakeDamage()
+    {
+        yield return new WaitForSeconds(0.05f);
+        _currentLife--;
+        Vector3 position = transform.position;
+        if (_currentLife <= 0)
+        {
+            ParticleManager.Instance.PlanetDestroyed(position);
+            GameManager.Instance.SpawnPowerUp(position);
+            GameManager.Instance.RemoveBlock();
+            Destroy(gameObject);
+        }
+        else
+        {
+            ParticleManager.Instance.PlanetTookDamage(position);
         }
     }
 }
